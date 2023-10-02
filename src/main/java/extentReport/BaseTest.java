@@ -13,10 +13,13 @@ import java.nio.file.*;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.JavascriptExecutor;
@@ -138,12 +141,10 @@ public class BaseTest {
 		}
 
 		extentTest.assignCategory(m.getAnnotation(Test.class).groups());
-		driver.quit();
+		// driver.quit();
 	}
 
 	public void login() throws InterruptedException, IOException {
-
-
 
 		// Open Login Page
 		ArrayList TS001 = d.getData("TS001", "BT");
@@ -178,7 +179,10 @@ public class BaseTest {
 		String log4 = (String) TS004.get(0) + " " + TS004.get(1);
 		extentTest.log(Status.PASS, log4,
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log4 + ".jpg")).build());
+	}
 
+	// Open Assign Care Member Page
+	public void openAssignCareMemberPage() throws IOException, InterruptedException {
 		// Click Manage Button
 		ArrayList TS005 = d.getData("TS005", "BT");
 		WebElement manageButton = driver.findElement(By.xpath((String) TS005.get(5)));
@@ -192,7 +196,7 @@ public class BaseTest {
 		ArrayList TS006 = d.getData("TS006", "BT");
 		WebElement assignedManagerButton = driver.findElement(By.xpath((String) TS006.get(5)));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", assignedManagerButton);
-		//assignedManagerButton.click();
+		// assignedManagerButton.click();
 		Thread.sleep(5000);
 		String log6 = (String) TS006.get(0) + " " + TS006.get(1);
 		extentTest.log(Status.PASS, log6,
@@ -233,21 +237,22 @@ public class BaseTest {
 		extentTest.log(Status.PASS, log10,
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log10 + ".jpg")).build());
 
-		//Select All CheckBox
+		// Select All CheckBox
 		ArrayList TS011 = d.getData("TS011", "BT");
 		WebElement selectAll = driver.findElement(By.xpath((String) TS011.get(5)));
 		selectAll.click();
 		String log11 = (String) TS011.get(0) + " " + TS011.get(1);
 		extentTest.log(Status.PASS, log11,
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log11 + ".jpg")).build());
-		
-		//Click Search All
+
+		// Click Search All
 		ArrayList TS012 = d.getData("TS012", "BT");
 		WebElement searchALL = driver.findElement(By.xpath((String) TS012.get(5)));
 		searchALL.click();
 		String log12 = (String) TS012.get(0) + " " + TS012.get(1);
 		extentTest.log(Status.PASS, log12,
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log12 + ".jpg")).build());
+
 	}
 
 	// Screenshot
@@ -268,4 +273,87 @@ public class BaseTest {
 		}
 	}
 
+public void assignCareMember() throws InterruptedException, IOException {
+	List<WebElement> elements=driver.findElements(By.xpath("(//tbody[@role='rowgroup'])[4]/tr"));
+	String pageinationStr=driver.findElement(By.xpath("//span[@class='k-pager-info k-label']")).getText();
+	String totalPageConutStr=pageinationStr.substring(10, 13);
+	
+	
+	Thread.sleep(5000);
+	//Click Member ID
+	ArrayList TS001 = d.getData("TS001", "TestCase");
+	WebElement memID = driver.findElement(By.xpath((String) TS001.get(5)));
+	memID.click();
+	Thread.sleep(5000);
+	String log1 = (String) TS001.get(0) + " " + TS001.get(1);
+	extentTest.log(Status.PASS, log1,
+			MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log1 + ".jpg")).build());
+	
+	ArrayList TS002 = d.getData("TS002", "TestCase");
+	String pLang = driver.findElement(By.xpath((String) TS002.get(5))).getText();
+	String log2 = (String) TS002.get(0) + " " + TS002.get(1);
+	extentTest.log(Status.PASS, log2+" .Language is: "+ pLang,
+			MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log2 + ".jpg")).build());
+	
+	if (pLang.contains((String) TS002.get(6))){
+		
+		//Close popup
+		ArrayList TS003 = d.getData("TS003", "TestCase");
+		WebElement popup  = driver.findElement(By.xpath((String) TS003.get(5)));
+		popup.click();
+		String log3 = (String) TS003.get(0) + " " + TS003.get(1);
+		extentTest.log(Status.PASS, log3,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log3 + ".jpg")).build());
+		Thread.sleep(5000);
+		//Click Checkbox
+		ArrayList TS004 = d.getData("TS004", "TestCase");
+		WebElement checkBox = driver.findElement(By.xpath((String) TS004.get(5)));
+		checkBox.click();
+		String log4 = (String) TS004.get(0) + " " + TS004.get(1);
+		extentTest.log(Status.PASS, log4,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log4 + ".jpg")).build());
+		Thread.sleep(5000);
+		//Type Care Staff Name
+		ArrayList TS005 = d.getData("TS005", "TestCase");
+		WebElement careStaff = driver.findElement(By.xpath((String) TS005.get(5)));
+		careStaff.sendKeys((String) TS005.get(6));
+		String log5 = (String) TS005.get(0) + " " + TS005.get(1);
+		extentTest.log(Status.PASS, log5,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log5 + ".jpg")).build());
+		Thread.sleep(5000);
+		//Select Option
+		ArrayList TS006 = d.getData("TS006", "TestCase");
+		WebElement option = driver.findElement(By.xpath((String) TS006.get(5)));
+		option.click();
+		String log6 = (String) TS006.get(0) + " " + TS006.get(1);
+		extentTest.log(Status.PASS, log6,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log6 + ".jpg")).build());
+		Thread.sleep(5000);
+		//Click Assign Button
+		ArrayList TS007 = d.getData("TS007", "TestCase");
+		WebElement assignButton = driver.findElement(By.xpath((String) TS007.get(5)));
+		assignButton.click();
+		String log7 = (String) TS007.get(0) + " " + TS007.get(1);
+		extentTest.log(Status.PASS, log7,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log7 + ".jpg")).build());
+		Thread.sleep(5000);
+		System.out.println("Assign Button Clicked");
+	}
+	
+	else {
+		
+		//Close popup
+		ArrayList TS003 = d.getData("TS003", "TestCase");
+		WebElement popup  = driver.findElement(By.xpath((String) TS003.get(5)));
+		popup.click();
+		String log3 = (String) TS003.get(0) + " " + TS003.get(1);
+		extentTest.log(Status.PASS, log3,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log3 + ".jpg")).build());
+		System.out.println("Primary Language is not English");
+		
+	}
+
+
+	
+}
 }
