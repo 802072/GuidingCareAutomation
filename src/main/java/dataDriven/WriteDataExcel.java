@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class writeDataExcel {
+public class WriteDataExcel {
 
 	// XSSFWorkbook workbook;
 	XSSFSheet sh;

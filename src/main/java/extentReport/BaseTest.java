@@ -54,7 +54,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import dataDriven.DataDriven;
-import dataDriven.writeDataExcel;
+import dataDriven.WriteDataExcel;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +67,7 @@ public class BaseTest {
 
 	DataDriven d = new DataDriven();
 	Date date = new Date();
-	writeDataExcel writeExl = new writeDataExcel();
+	WriteDataExcel writeExl = new WriteDataExcel();
 	String fileDate = date.toString().replace(":", "_").replace(" ", "_");
 
 	@BeforeSuite
