@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-	<test name="Verify Member Care Staff Assigned (Edge)">
+<!--	<test name="Verify Member Care Staff Assigned (Edge)">
 		<parameter
 			name="browserName" value="edge" />
 		<parameter name="author"
@@ -15,9 +15,9 @@
 				</methods>
 			</class>
 		</classes>
-	</test>
+	</test>-->
 	
-		<test name="Verify Member Care Staff Assigned (Chrome)">
+	<test name="Verify Member Care Staff Assigned (Chrome)">
 		<parameter
 			name="browserName" value="chrome" />
 		<parameter name="author"
