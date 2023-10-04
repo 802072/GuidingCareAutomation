@@ -54,6 +54,7 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
 import dataDriven.DataDriven;
+import dataDriven.writeDataExcel;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -66,13 +67,14 @@ public class BaseTest {
 
 	DataDriven d = new DataDriven();
 	Date date = new Date();
+	writeDataExcel writeExl = new writeDataExcel();
 	String fileDate = date.toString().replace(":", "_").replace(" ", "_");
 
 	@BeforeSuite
 	public void initialiseExtentReports() {
 		// ADL
 		ExtentSparkReporter sparkReporter_all = new ExtentSparkReporter("GuidingCareMemberData.html");
-		sparkReporter_all.config().setReportName("Guiding Care: Capture Member Data Values");
+		sparkReporter_all.config().setReportName("Guiding Care: Assign Care Member Report");
 		extentReports = new ExtentReports();
 		extentReports.attachReporter(sparkReporter_all);
 
@@ -145,114 +147,157 @@ public class BaseTest {
 	}
 
 	public void login() throws InterruptedException, IOException {
-
 		// Open Login Page
-		ArrayList TS001 = d.getData("TS001", "BT");
-		driver.get((String) TS001.get(6));
-		Thread.sleep(5000);
-		String log1 = (String) TS001.get(0) + " " + TS001.get(1);
-		extentTest.log(Status.PASS, log1,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log1 + ".jpg")).build());
-
+		getLoginPage();
 		// Enter Username
-		ArrayList TS002 = d.getData("TS002", "BT");
-		WebElement userName = driver.findElement(By.xpath((String) TS002.get(5)));
-		userName.sendKeys((String) TS002.get(6));
-		String log2 = (String) TS002.get(0) + " " + TS002.get(1);
-		extentTest.log(Status.PASS, log2,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log2 + ".jpg")).build());
-
+		sendKeys("TS002", "TestCase");
 		// Enter Password
-		ArrayList TS003 = d.getData("TS003", "BT");
-		WebElement pwd = driver.findElement(By.xpath((String) TS003.get(5)));
-		pwd.sendKeys((String) TS003.get(6));
-		String log3 = (String) TS003.get(0) + " " + TS003.get(1);
-		extentTest.log(Status.PASS, log3,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log2 + ".jpg")).build());
-
+		sendKeys("TS003", "TestCase");
 		// Click Login Button
-		ArrayList TS004 = d.getData("TS004", "BT");
-		WebElement signIn = driver.findElement(By.xpath((String) TS004.get(5)));
-
-		signIn.click();
-		Thread.sleep(5000);
-		String log4 = (String) TS004.get(0) + " " + TS004.get(1);
-		extentTest.log(Status.PASS, log4,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log4 + ".jpg")).build());
+		clickElement("TS004", "TestCase");
 	}
 
 	// Open Assign Care Member Page
 	public void openAssignCareMemberPage() throws IOException, InterruptedException {
 		// Click Manage Button
-		ArrayList TS005 = d.getData("TS005", "BT");
-		WebElement manageButton = driver.findElement(By.xpath((String) TS005.get(5)));
-		manageButton.click();
-		Thread.sleep(5000);
-		String log5 = (String) TS005.get(0) + " " + TS005.get(1);
-		extentTest.log(Status.PASS, log5,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log5 + ".jpg")).build());
-
+		clickElement("TS005", "TestCase");
 		// Click on Assigned Manager
-		ArrayList TS006 = d.getData("TS006", "BT");
-		WebElement assignedManagerButton = driver.findElement(By.xpath((String) TS006.get(5)));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", assignedManagerButton);
-		// assignedManagerButton.click();
-		Thread.sleep(5000);
-		String log6 = (String) TS006.get(0) + " " + TS006.get(1);
-		extentTest.log(Status.PASS, log6,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log6 + ".jpg")).build());
-
+		clickElementJSExecutor("TS006", "TestCase");
 		// Click on Assigned Status Dropdown
-		ArrayList TS007 = d.getData("TS007", "BT");
-		WebElement assignedStatusDropdown = driver.findElement(By.xpath((String) TS007.get(5)));
-		assignedStatusDropdown.click();
-		Thread.sleep(5000);
-		String log7 = (String) TS007.get(0) + " " + TS007.get(1);
-		extentTest.log(Status.PASS, log7,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log7 + ".jpg")).build());
-
+		clickElement("TS007", "TestCase");
 		// Select UnAssigned
-		ArrayList TS008 = d.getData("TS008", "BT");
-		WebElement unassigned = driver.findElement(By.xpath((String) TS008.get(5)));
-		unassigned.click();
-		Thread.sleep(5000);
-		String log8 = (String) TS008.get(0) + " " + TS008.get(1);
-		extentTest.log(Status.PASS, log8,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log8 + ".jpg")).build());
-
+		clickElement("TS008", "TestCase");
 		// Click Enrollment Search
-		ArrayList TS009 = d.getData("TS009", "BT");
-		WebElement enrollmentSearch = driver.findElement(By.xpath((String) TS009.get(5)));
-		enrollmentSearch.click();
-		Thread.sleep(5000);
-		String log9 = (String) TS009.get(0) + " " + TS009.get(1);
-		extentTest.log(Status.PASS, log9,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log9 + ".jpg")).build());
-
+		clickElement("TS009", "TestCase");
 		// Type MLTC On Eligibility Level Value
-		ArrayList TS010 = d.getData("TS010", "BT");
-		WebElement eligibilityLevelValue = driver.findElement(By.xpath((String) TS010.get(5)));
-		eligibilityLevelValue.sendKeys((String) TS010.get(6));
-		String log10 = (String) TS010.get(0) + " " + TS010.get(1);
-		extentTest.log(Status.PASS, log10,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log10 + ".jpg")).build());
-
+		sendKeys("TS010", "TestCase");
 		// Select All CheckBox
-		ArrayList TS011 = d.getData("TS011", "BT");
-		WebElement selectAll = driver.findElement(By.xpath((String) TS011.get(5)));
-		selectAll.click();
-		String log11 = (String) TS011.get(0) + " " + TS011.get(1);
-		extentTest.log(Status.PASS, log11,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log11 + ".jpg")).build());
-
+		clickElement("TS011", "TestCase");
 		// Click Search All
-		ArrayList TS012 = d.getData("TS012", "BT");
-		WebElement searchALL = driver.findElement(By.xpath((String) TS012.get(5)));
-		searchALL.click();
-		String log12 = (String) TS012.get(0) + " " + TS012.get(1);
-		extentTest.log(Status.PASS, log12,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log12 + ".jpg")).build());
+		clickElement("TS012", "TestCase");
+	}
 
+	public void assignCareMember() throws InterruptedException, IOException, AWTException {
+		Thread.sleep(5000);
+		List<String> memberID = new ArrayList<String>();
+		List<String> memberName = new ArrayList<String>();
+		List<String> gender = new ArrayList<String>();
+		List<String> dob = new ArrayList<String>();
+		List<String> pLang = new ArrayList<String>();
+
+		String testSheetName = "Sheet1";
+
+		// List<WebElement> element =
+		// driver.findElements(By.xpath("(//tbody[@role='rowgroup'])[4]/tr"));
+
+		// for (int i = 1; i <= element.size() - 1; i++) {
+		for (int i = 1; i <= 1; i++) {
+			Thread.sleep(5000);
+			// Click Member ID
+			ArrayList TS013 = d.getData("TS013", "TestCase");
+			String log1 = (String) TS013.get(0) + " " + TS013.get(1);
+			extentTest.log(Status.PASS, log1,
+					MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log1 + ".jpg")).build());
+
+			// Actions act = new Actions(driver);
+			// act.moveToElement(driver.findElement(
+			// By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" +
+			// "/td[17]//..//../td[3]"))).perform();
+			Thread.sleep(2000);
+
+			driver.findElement(By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[3]"))
+					.click();
+			// clickElementJSExecutor("TS013", "TestCase");
+			Thread.sleep(2000);
+
+			memberName.add(driver.findElement(By.xpath("//p[contains(text(),'Member Name')]/../following-sibling::div"))
+					.getText());
+			pLang.add(driver.findElement(By.xpath("//p[contains(text(),'Primary Language')]/../following-sibling::div"))
+					.getText());
+			gender.add(
+					driver.findElement(By.xpath("//p[contains(text(),'Gender')]/../following-sibling::div")).getText());
+			memberID.add(driver.findElement(By.xpath("//p[contains(text(),'Member ID')]/../following-sibling::div"))
+					.getText());
+			dob.add(driver.findElement(By.xpath("//p[contains(text(),'Date of Birth')]/../following-sibling::div"))
+					.getText());
+
+			ArrayList TS014 = d.getData("TS014", "TestCase");
+			String prLang = driver.findElement(By.xpath((String) TS014.get(5))).getText();
+			String log2 = (String) TS014.get(0) + " " + TS014.get(1);
+			extentTest.log(Status.PASS, log2 + " Primary Language is: " + prLang,
+					MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log2 + ".jpg")).build());
+
+			Thread.sleep(2000);
+
+			// If Primary Language is English
+			if (prLang.contains((String) TS014.get(6))) {
+				// Close popup
+				clickElementJSExecutor("TS015", "TestCase");
+				Thread.sleep(5000);
+				// Click Checkbox
+				clickElement("TS016", "TestCase");
+				Thread.sleep(5000);
+				// Type Care Staff Name
+				sendKeys("TS017", "TestCase");
+				Thread.sleep(5000);
+				// Select Option
+				clickElement("TS018", "TestCase");
+				Thread.sleep(5000);
+				// Click Assign Button
+				clickElement("TS019", "TestCase");
+				Thread.sleep(5000);
+
+				System.out.println("Assigned Successfully");
+			}
+
+			else {
+
+				// Close popup
+				clickElementJSExecutor("TS015", "TestCase");
+				System.out.println("Primary Language is not English");
+			}
+		}
+		// Write to Excel
+		writeExl.writeIntoExcel(memberID, memberName, gender, dob, pLang, testSheetName);
+		System.out.println("MEMBER ID-->" + memberID);
+	}
+
+	public void getLoginPage() throws IOException, InterruptedException {
+		ArrayList list = d.getData("TS001", "TestCase");
+		driver.get((String) list.get(6));
+		Thread.sleep(5000);
+		String log = (String) list.get(0) + " " + list.get(1);
+		extentTest.log(Status.PASS, log,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log + ".jpg")).build());
+	}
+
+	public void clickElement(String rowNum, String testSheetName) throws IOException, InterruptedException {
+		ArrayList list = d.getData(rowNum, testSheetName);
+		WebElement element = driver.findElement(By.xpath((String) list.get(5)));
+		element.click();
+		Thread.sleep(5000);
+		String log = (String) list.get(0) + " " + list.get(1);
+		extentTest.log(Status.PASS, log,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log + ".jpg")).build());
+	}
+
+	public void clickElementJSExecutor(String rowNum, String testSheetName) throws IOException, InterruptedException {
+		ArrayList list = d.getData(rowNum, testSheetName);
+		WebElement element = driver.findElement(By.xpath((String) list.get(5)));
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+		Thread.sleep(5000);
+		String log = (String) list.get(0) + " " + list.get(1);
+		extentTest.log(Status.PASS, log,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log + ".jpg")).build());
+	}
+
+	public void sendKeys(String rowNum, String testSheetName) throws IOException {
+		ArrayList list = d.getData(rowNum, testSheetName);
+		WebElement element = driver.findElement(By.xpath((String) list.get(5)));
+		element.sendKeys((String) list.get(6));
+		String log = (String) list.get(0) + " " + list.get(1);
+		extentTest.log(Status.PASS, log,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log + ".jpg")).build());
 	}
 
 	// Screenshot
@@ -272,88 +317,4 @@ public class BaseTest {
 			throw new UnableSaveSnapshotException(e);
 		}
 	}
-
-public void assignCareMember() throws InterruptedException, IOException {
-	List<WebElement> elements=driver.findElements(By.xpath("(//tbody[@role='rowgroup'])[4]/tr"));
-	String pageinationStr=driver.findElement(By.xpath("//span[@class='k-pager-info k-label']")).getText();
-	String totalPageConutStr=pageinationStr.substring(10, 13);
-	
-	
-	Thread.sleep(5000);
-	//Click Member ID
-	ArrayList TS001 = d.getData("TS001", "TestCase");
-	WebElement memID = driver.findElement(By.xpath((String) TS001.get(5)));
-	memID.click();
-	Thread.sleep(5000);
-	String log1 = (String) TS001.get(0) + " " + TS001.get(1);
-	extentTest.log(Status.PASS, log1,
-			MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log1 + ".jpg")).build());
-	
-	ArrayList TS002 = d.getData("TS002", "TestCase");
-	String pLang = driver.findElement(By.xpath((String) TS002.get(5))).getText();
-	String log2 = (String) TS002.get(0) + " " + TS002.get(1);
-	extentTest.log(Status.PASS, log2+" .Language is: "+ pLang,
-			MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log2 + ".jpg")).build());
-	
-	if (pLang.contains((String) TS002.get(6))){
-		
-		//Close popup
-		ArrayList TS003 = d.getData("TS003", "TestCase");
-		WebElement popup  = driver.findElement(By.xpath((String) TS003.get(5)));
-		popup.click();
-		String log3 = (String) TS003.get(0) + " " + TS003.get(1);
-		extentTest.log(Status.PASS, log3,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log3 + ".jpg")).build());
-		Thread.sleep(5000);
-		//Click Checkbox
-		ArrayList TS004 = d.getData("TS004", "TestCase");
-		WebElement checkBox = driver.findElement(By.xpath((String) TS004.get(5)));
-		checkBox.click();
-		String log4 = (String) TS004.get(0) + " " + TS004.get(1);
-		extentTest.log(Status.PASS, log4,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log4 + ".jpg")).build());
-		Thread.sleep(5000);
-		//Type Care Staff Name
-		ArrayList TS005 = d.getData("TS005", "TestCase");
-		WebElement careStaff = driver.findElement(By.xpath((String) TS005.get(5)));
-		careStaff.sendKeys((String) TS005.get(6));
-		String log5 = (String) TS005.get(0) + " " + TS005.get(1);
-		extentTest.log(Status.PASS, log5,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log5 + ".jpg")).build());
-		Thread.sleep(5000);
-		//Select Option
-		ArrayList TS006 = d.getData("TS006", "TestCase");
-		WebElement option = driver.findElement(By.xpath((String) TS006.get(5)));
-		option.click();
-		String log6 = (String) TS006.get(0) + " " + TS006.get(1);
-		extentTest.log(Status.PASS, log6,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log6 + ".jpg")).build());
-		Thread.sleep(5000);
-		//Click Assign Button
-		ArrayList TS007 = d.getData("TS007", "TestCase");
-		WebElement assignButton = driver.findElement(By.xpath((String) TS007.get(5)));
-		assignButton.click();
-		String log7 = (String) TS007.get(0) + " " + TS007.get(1);
-		extentTest.log(Status.PASS, log7,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log7 + ".jpg")).build());
-		Thread.sleep(5000);
-		System.out.println("Assign Button Clicked");
-	}
-	
-	else {
-		
-		//Close popup
-		ArrayList TS003 = d.getData("TS003", "TestCase");
-		WebElement popup  = driver.findElement(By.xpath((String) TS003.get(5)));
-		popup.click();
-		String log3 = (String) TS003.get(0) + " " + TS003.get(1);
-		extentTest.log(Status.PASS, log3,
-				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(log3 + ".jpg")).build());
-		System.out.println("Primary Language is not English");
-		
-	}
-
-
-	
-}
 }

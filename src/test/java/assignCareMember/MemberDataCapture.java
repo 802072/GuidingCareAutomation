@@ -1,4 +1,4 @@
-package MemberValueCapture;
+package assignCareMember;
 
 import java.awt.AWTException;
 import java.io.IOException;
@@ -6,8 +6,9 @@ import java.util.ArrayList;
 
 import org.testng.annotations.Test;
 
+import dataDriven.VerifyAllData;
 import extentReport.BaseTest;
-import extentReport.VerifyAllData;
+import extentReport.BaseTest;
 
 public class MemberDataCapture extends BaseTest {
 	VerifyAllData v = new VerifyAllData();
