@@ -45,7 +45,7 @@ public class WriteDataExcel {
 
 		List<String> memberIDList = memberID;
 		for (int i = 0; i < memberIDList.size(); i++) {
-			Row row = sh.getRow(i + 1);
+			Row row = sh.createRow(i + 1);
 			Cell cell = row.createCell(0);
 			cell.setCellValue(memberIDList.get(i));
 		}

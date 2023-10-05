@@ -191,7 +191,7 @@ public class BaseTest {
 		System.out.println("ELEMENT SIZE IS: " + element.size());
 		// for (int i = 1; i <= element.size() - 1; i++) {
 
-		for (int i = 1; i <= 5; i++) {
+		for (int i = 9; i <= 11; i++) {
 			Thread.sleep(5000);
 
 			// Click Member ID
@@ -199,6 +199,7 @@ public class BaseTest {
 			Actions act = new Actions(driver);
 			WebElement memID = driver.findElement(
 					By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[3]"));
+			
 			act.moveToElement(memID).perform();
 			Thread.sleep(2000);
 			memID.click();
@@ -244,10 +245,10 @@ public class BaseTest {
 				ArrayList list = d.getData("TS018", "TestCase");
 				WebElement checkbox = driver.findElement(
 						By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[1]"));
+				
 				act.moveToElement(checkbox).perform();
 				checkbox.click();
-				System.out.println("checkbox clicked");
-				Thread.sleep(5000);
+
 				String log1 = (String) list.get(0) + " " + list.get(1);
 				extentTest.log(Status.PASS, log1, MediaEntityBuilder
 						.createScreenCaptureFromPath(captureScreenshot((String) list.get(0) + i + ".jpg")).build());
@@ -261,7 +262,7 @@ public class BaseTest {
 				System.out.println("Care Member for English Language Assigned Successfully");
 			}
 
-			else {
+			else {				
 				System.out.println("Primary Language is not English, Care Member Not Assigned");
 				extentTest.log(Status.PASS, "Primary Language is not English, Care Member Not Assigned",
 						MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot("NotEnglish" + i + ".jpg"))
@@ -269,9 +270,10 @@ public class BaseTest {
 			}
 		}
 		// Write to Excel
-		// writeExl.writeIntoExcel(memberID, memberName, gender, dob, pLang,
-		// testSheetName);
 		System.out.println("MEMBER ID-->" + memberID);
+		 writeExl.writeIntoExcel(memberID, memberName, gender, dob, pLang,
+		 testSheetName);
+		
 	}
 
 	public void getLoginPage() throws IOException, InterruptedException {
