@@ -191,7 +191,7 @@ public class BaseTest {
 		System.out.println("ELEMENT SIZE IS: " + element.size());
 		// for (int i = 1; i <= element.size() - 1; i++) {
 
-		for (int i = 9; i <= 11; i++) {
+		for (int i = 1; i <= 7; i++) {
 			Thread.sleep(5000);
 
 			// Click Member ID
@@ -221,6 +221,7 @@ public class BaseTest {
 			dob.add(driver.findElement(By.xpath("//p[contains(text(),'Date of Birth')]/../following-sibling::div"))
 					.getText());
 
+			//Log Actual PLang Value
 			ArrayList TS014 = d.getData("TS014", "TestCase");
 			String prLang = driver.findElement(By.xpath((String) TS014.get(5))).getText();
 			String log2 = (String) TS014.get(0) + " " + TS014.get(1);
