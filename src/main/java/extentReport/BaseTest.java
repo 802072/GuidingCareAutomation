@@ -191,7 +191,7 @@ public class BaseTest {
 		System.out.println("ELEMENT SIZE IS: " + element.size());
 		// for (int i = 1; i <= element.size() - 1; i++) {
 
-		for (int i = 1; i <= 7; i++) {
+		for (int i = 1; i <= 1; i++) {
 			Thread.sleep(5000);
 
 			// Click Member ID
