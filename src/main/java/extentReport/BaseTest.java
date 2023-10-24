@@ -31,6 +31,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Assert;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -155,14 +156,18 @@ public class BaseTest {
 		sendKeys("TS003", "TestCase");
 		// Click Login Button
 		clickElement("TS004", "TestCase");
+
 	}
 
 	// Open Assign Care Member Page
 	public void openAssignCareMemberPage() throws IOException, InterruptedException {
+		
 		// Click Manage Button
 		clickElement("TS005", "TestCase");
 		// Click on Assigned Manager
 		clickElementJSExecutor("TS006", "TestCase");
+		// Verify Search Criteria Header
+		assertEquals("TS006A", "TestCase");
 		// Click on Assigned Status Dropdown
 		clickElement("TS007", "TestCase");
 		// Select UnAssigned
@@ -188,7 +193,7 @@ public class BaseTest {
 		String testSheetName = "Sheet1";
 
 		List<WebElement> element = driver.findElements(By.xpath("(//tbody[@role='rowgroup'])[4]/tr"));
-		System.out.println("ELEMENT SIZE IS: " + element.size());
+		//System.out.println("ELEMENT SIZE IS: " + element.size());
 		// for (int i = 1; i <= element.size() - 1; i++) {
 
 		for (int i = 1; i <= 1; i++) {
@@ -203,7 +208,7 @@ public class BaseTest {
 			act.moveToElement(memID).perform();
 			Thread.sleep(2000);
 			memID.click();
-			String log = (String) TS013.get(0) + " " + TS013.get(1);
+			String log = (String) TS013.get(0) + " " + TS013.get(1)+" : "+memID.getText();
 			extentTest.log(Status.PASS, log, MediaEntityBuilder
 					.createScreenCaptureFromPath(captureScreenshot((String) TS013.get(0) + i + ".jpg")).build());
 
@@ -332,4 +337,31 @@ public class BaseTest {
 			throw new UnableSaveSnapshotException(e);
 		}
 	}
+	
+	public void verifyPageTitle(String rowName, String sheetName) throws IOException {
+		ArrayList<?> list = d.getData(rowName, sheetName);
+		String pageTitle = driver.getTitle();
+		Assert.assertEquals(pageTitle, (String) list.get(6));
+		// log
+		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1),
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(rowName +sheetName +  fileDate + ".jpg")).build());
+		System.out.println("TITLE IS : " + pageTitle);
+	}
+	
+	public void captureTotalMemberNumber() throws IOException{
+		ArrayList<?> list = d.getData("TS012A", "TestCase");
+		String pageinationStr=driver.findElement(By.xpath((String) list.get(5))).getText();
+		String totalMemberCount=pageinationStr.substring(10, 13);
+		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1) + ": "+totalMemberCount,
+				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot("TS012A"+ "TestCase" +  fileDate + ".jpg")).build());
+	}
+	
+	public void assertEquals(String rowName, String sheetName) throws InterruptedException, IOException {
+		ArrayList list = d.getData(rowName, sheetName);
+		Assert.assertEquals(driver.findElement(By.xpath((String) list.get(5))).getText(), (String) list.get(6));
+		Thread.sleep(10000);
+		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1), MediaEntityBuilder
+				.createScreenCaptureFromPath(captureScreenshot(rowName + sheetName + fileDate + ".jpg")).build());
+	}
+
 }
