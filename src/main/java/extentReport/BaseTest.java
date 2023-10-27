@@ -144,7 +144,7 @@ public class BaseTest {
 		}
 
 		extentTest.assignCategory(m.getAnnotation(Test.class).groups());
-		// driver.quit();
+		 driver.quit();
 	}
 
 	public void login() throws InterruptedException, IOException {
@@ -203,7 +203,8 @@ public class BaseTest {
 			ArrayList TS013 = d.getData("TS013", "TestCase");
 			Actions act = new Actions(driver);
 			WebElement memID = driver.findElement(
-					By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[3]"));
+					//By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[3]"));
+					By.xpath("(//table/tbody/tr" + "[" + i + "]" + "/td[3]/a)[2]"));
 			
 			act.moveToElement(memID).perform();
 			Thread.sleep(2000);
@@ -251,10 +252,8 @@ public class BaseTest {
 				ArrayList list = d.getData("TS018", "TestCase");
 				WebElement checkbox = driver.findElement(
 						By.xpath("(//tbody[@role='rowgroup'])[4]/tr" + "[" + i + "]" + "/td[17]//..//../td[1]"));
-				
 				act.moveToElement(checkbox).perform();
 				checkbox.click();
-
 				String log1 = (String) list.get(0) + " " + list.get(1);
 				extentTest.log(Status.PASS, log1, MediaEntityBuilder
 						.createScreenCaptureFromPath(captureScreenshot((String) list.get(0) + i + ".jpg")).build());
@@ -270,7 +269,7 @@ public class BaseTest {
 
 			else {				
 				System.out.println("Primary Language is not English, Care Member Not Assigned");
-				extentTest.log(Status.PASS, "Primary Language is not English, Care Member Not Assigned",
+				extentTest.log(Status.INFO, "Primary Language is not English, Care Member Not Assigned",
 						MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot("NotEnglish" + i + ".jpg"))
 								.build());
 			}
@@ -343,7 +342,7 @@ public class BaseTest {
 		String pageTitle = driver.getTitle();
 		Assert.assertEquals(pageTitle, (String) list.get(6));
 		// log
-		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1),
+		extentTest.log(Status.INFO, (String) list.get(0)+ " "+(String) list.get(1),
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot(rowName +sheetName +  fileDate + ".jpg")).build());
 		System.out.println("TITLE IS : " + pageTitle);
 	}
@@ -352,7 +351,7 @@ public class BaseTest {
 		ArrayList<?> list = d.getData("TS012A", "TestCase");
 		String pageinationStr=driver.findElement(By.xpath((String) list.get(5))).getText();
 		String totalMemberCount=pageinationStr.substring(10, 13);
-		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1) + ": "+totalMemberCount,
+		extentTest.log(Status.INFO, (String) list.get(0)+ " "+(String) list.get(1) + ": "+totalMemberCount,
 				MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot("TS012A"+ "TestCase" +  fileDate + ".jpg")).build());
 	}
 	
@@ -360,7 +359,7 @@ public class BaseTest {
 		ArrayList list = d.getData(rowName, sheetName);
 		Assert.assertEquals(driver.findElement(By.xpath((String) list.get(5))).getText(), (String) list.get(6));
 		Thread.sleep(10000);
-		extentTest.log(Status.PASS, (String) list.get(0)+ " "+(String) list.get(1), MediaEntityBuilder
+		extentTest.log(Status.INFO, (String) list.get(0)+ " "+(String) list.get(1)+" "+(String) list.get(6), MediaEntityBuilder
 				.createScreenCaptureFromPath(captureScreenshot(rowName + sheetName + fileDate + ".jpg")).build());
 	}
 
