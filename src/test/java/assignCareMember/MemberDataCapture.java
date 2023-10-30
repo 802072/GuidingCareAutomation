@@ -22,7 +22,7 @@ public class MemberDataCapture extends BaseTest {
 		openAssignCareMemberPage();
 		//Log Total Members Before Member Assign
 		captureTotalMemberNumber(); 
-		//Assign Care Member, if ENG
+		//Assign Care Member, if Plang is ENG
 		assignCareMember();
 		//Log Total Members After Member Assign
 		captureTotalMemberNumber(); 

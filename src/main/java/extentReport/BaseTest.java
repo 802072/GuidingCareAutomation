@@ -295,7 +295,7 @@ public class BaseTest {
 		WebElement element = driver.findElement(By.xpath((String) list.get(5)));
 		element.click();
 		Thread.sleep(5000);
-		String log = (String) list.get(0) + " " + list.get(1);
+		String log = (String) list.get(0) + " " + list.get(1)+" " + list.get(2);
 		extentTest.log(Status.PASS, log, MediaEntityBuilder
 				.createScreenCaptureFromPath(captureScreenshot((String) list.get(0) + ".jpg")).build());
 	}
@@ -305,7 +305,7 @@ public class BaseTest {
 		WebElement element = driver.findElement(By.xpath((String) list.get(5)));
 		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
 		Thread.sleep(5000);
-		String log = (String) list.get(0) + " " + list.get(1);
+		String log = (String) list.get(0) + " " + list.get(1)+" " + list.get(2);
 		extentTest.log(Status.PASS, log, MediaEntityBuilder
 				.createScreenCaptureFromPath(captureScreenshot((String) list.get(0) + ".jpg")).build());
 	}
@@ -359,7 +359,7 @@ public class BaseTest {
 		ArrayList list = d.getData(rowName, sheetName);
 		Assert.assertEquals(driver.findElement(By.xpath((String) list.get(5))).getText(), (String) list.get(6));
 		Thread.sleep(10000);
-		extentTest.log(Status.INFO, (String) list.get(0)+ " "+(String) list.get(1)+" "+(String) list.get(6), MediaEntityBuilder
+		extentTest.log(Status.INFO, (String) list.get(0)+ " "+(String) list.get(1), MediaEntityBuilder
 				.createScreenCaptureFromPath(captureScreenshot(rowName + sheetName + fileDate + ".jpg")).build());
 	}
 

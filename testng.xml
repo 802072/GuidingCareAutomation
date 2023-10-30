@@ -17,7 +17,7 @@
 		</classes>
 	</test>
 
-<!--	<test name="Verify Member Care Staff Assigned (Chrome)">
+	<test name="Verify Member Care Staff Assigned (Chrome)">
 		<parameter
 			name="browserName" value="chrome" />
 		<parameter name="author"
@@ -32,7 +32,7 @@
 				</methods>
 			</class>
 		</classes>
-	</test>-->
+	</test>
 
 </suite> 
 
